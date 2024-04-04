@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 if __name__ == '__main__':
-    fileName = "errorSound.wav"
+    fileName = "errorSound_22050.wav"
     #fileName = "turnSignalSound.wav"
+    #fileName = "warningSound.wav"
     
     wav_file = wave.open(fileName)
     print ("framerate:", wav_file.getframerate())
@@ -13,14 +14,18 @@ if __name__ == '__main__':
     print ("sample size:", wav_file.getsampwidth())
     print ("channels:", wav_file.getnchannels())
     #data = wav_file.readframes(wav_file.getnframes())
-    data = wav_file.readframes(50)
+    data = wav_file.readframes(250)
     print ("number of samples read:", len(data) / (wav_file.getsampwidth() * wav_file.getnchannels()))
     
     
 
     signal = np.frombuffer(data , dtype=np.int16)
+    # plt.plot(signal)
+    # plt.title(fileName)
+    # plt.show()
     signal_32 = signal.astype(np.int32)
     signal_32 = signal_32 - signal_32.min()
+    signal_16U = signal_32;
     devider = signal_32.max() / 255
     signal_32 = signal_32 / devider
     print("Devider = ", devider)
