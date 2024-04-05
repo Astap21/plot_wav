@@ -4,17 +4,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 if __name__ == '__main__':
-    fileName = "errorSound_22050.wav"
-    #fileName = "turnSignalSound.wav"
-    #fileName = "warningSound.wav"
+    #fileName = "errorSound_22050.wav"
+    #fileName = "turnSignalSound_1.wav"
+    fileName = "warningSound.wav"
     
     wav_file = wave.open(fileName)
     print ("framerate:", wav_file.getframerate())
     print ("nsamples:", wav_file.getnframes())
     print ("sample size:", wav_file.getsampwidth())
     print ("channels:", wav_file.getnchannels())
-    #data = wav_file.readframes(wav_file.getnframes())
-    data = wav_file.readframes(250)
+    data = wav_file.readframes(wav_file.getnframes())
+    #data = wav_file.readframes(250)
     print ("number of samples read:", len(data) / (wav_file.getsampwidth() * wav_file.getnchannels()))
     
     
@@ -33,6 +33,9 @@ if __name__ == '__main__':
     fft_result = np.fft.fft(signal)
     # Вычисляем частоты, соответствующие бинам преобразования Фурье
     frequencies = np.fft.fftfreq(len(fft_result), 1 / wav_file.getframerate())
+    plt.plot(frequencies)
+    plt.title("frequencies")
+    plt.show()
     # Находим индекс максимального значения амплитуды
     max_index = np.argmax(np.abs(fft_result))
     # Получаем частоту синусоиды
