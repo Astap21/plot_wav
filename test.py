@@ -6,7 +6,8 @@ import numpy as np
 if __name__ == '__main__':
     #fileName = "errorSound_22050.wav"
     #fileName = "turnSignalSound_1.wav"
-    fileName = "warningSound.wav"
+    #fileName = "warningSound.wav"
+    fileName = "plot_wav/warningSound.wav"
     
     wav_file = wave.open(fileName)
     print ("framerate:", wav_file.getframerate())
@@ -25,7 +26,7 @@ if __name__ == '__main__':
     # plt.show()
     signal_32 = signal.astype(np.int32)
     signal_32 = signal_32 - signal_32.min()
-    signal_16U = signal_32;
+    signal_16U = signal_32
     devider = signal_32.max() / 255
     signal_32 = signal_32 / devider
     print("Devider = ", devider)
@@ -33,8 +34,18 @@ if __name__ == '__main__':
     fft_result = np.fft.fft(signal)
     # Вычисляем частоты, соответствующие бинам преобразования Фурье
     frequencies = np.fft.fftfreq(len(fft_result), 1 / wav_file.getframerate())
-    plt.plot(frequencies)
-    plt.title("frequencies")
+    # Амплитуды (по модулю) и частоты
+    amplitudes = np.abs(fft_result)
+    y = list(range(0, len(frequencies)))
+    # Поскольку результат симметричен, возьмем только положительные частоты
+    positive_freqs = frequencies[:len(frequencies)//2]
+    positive_amplitudes = amplitudes[:len(amplitudes)//2]
+
+    plt.plot(positive_freqs, positive_amplitudes)
+    plt.title('Спектр сигнала')
+    plt.xlabel('Частота (Гц)')
+    plt.ylabel('Амплитуда')
+    plt.grid(True)
     plt.show()
     # Находим индекс максимального значения амплитуды
     max_index = np.argmax(np.abs(fft_result))
@@ -52,6 +63,10 @@ if __name__ == '__main__':
     print(len(roundArr))
     np.savetxt('array_data.txt', roundArr, delimiter=",", fmt="%3d", newline = ", ")
 
+    plt.title('Спектр сигнала')
+    plt.xlabel('Время')
+    plt.ylabel('Амплитуда')
+    plt.grid(True)
     plt.plot(np.round(signal_32))
     #plt.plot(signal)
     plt.title(fileName)
