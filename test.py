@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 if __name__ == '__main__':
-    fileName = "errorSound_22050.wav"
+    #fileName = "errorSound_22050.wav"
     #fileName = "turnSignalSound.wav"
-    #fileName = "warningSound.wav"
+    fileName = "warningSound.wav"
     
     wav_file = wave.open(fileName)
     print ("framerate:", wav_file.getframerate())
