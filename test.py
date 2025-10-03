@@ -2,7 +2,9 @@ import sys
 import wave
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib
 from scipy.signal import butter, filtfilt
+matplotlib.use("TkAgg")
 
 def Filter(signal, sampling_rate):
     # Параметры фильтра
@@ -20,7 +22,7 @@ if __name__ == '__main__':
     #fileName = "errorSound_22050.wav"
     #fileName = "turnSignalSound_1.wav"
     #fileName = "warningSound.wav"
-    fileName = "plot_wav/warningSound.wav"
+    fileName = "warningSound.wav"
     
     wav_file = wave.open(fileName)
     print ("framerate:", wav_file.getframerate())

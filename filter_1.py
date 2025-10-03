@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 from scipy.signal import butter, filtfilt
+matplotlib.use("TkAgg")
 
 def FltNew():
     # Преобразование Фурье
